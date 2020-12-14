@@ -1,21 +1,21 @@
 import os
 from shutil import disk_usage
 from datetime import datetime, timedelta
-import telegram_sender
+
+from telegram_sender import send_telegram
 
 path = 'H:\\media'
-deleted_files = []
 
-total, used, free = disk_usage("/")
-if used / total > 0.1:
-    d = f'{datetime.now() - timedelta(days=14):%Y%m%d}'
+total, used, free = disk_usage(path)
+
+if free / total < 0.1:
+    delta_time = f'{datetime.now() - timedelta(days=12):%Y%m%d}'
+    """delta_time: - время хранения файлов ос сегоднешнего дня"""
     if os.path.exists(path):
         if os.path.isdir(path):
-            list_of_files1 = os.listdir(path=path)
-            for i in list_of_files1:
-                if int(d) > int(i[:8]):
-                    os.remove(f'{path}\\{i}')
-                    print(f'{path}\\{i} - removed')
-                    deleted_files.append(i)
+            for file in os.listdir(path=path):
+                if int(delta_time) > int((datetime.fromtimestamp((os.path.getctime(path+'\\'+file))).strftime('%Y%m%d'))):
+                    os.remove(f'{path}\\{file}')
+    send_telegram(f"Files created before {delta_time} - are deleted")
 
-    telegram_sender.send_telegram(f'Видалені файли: {deleted_files}')
+

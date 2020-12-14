@@ -1,5 +1,6 @@
 import socket
 import time
+import os
 from datetime import datetime
 
 
@@ -10,9 +11,6 @@ def play_ok(s):
     :return: None
     """
     while True:
-        # path = f'\\media\\{datetime.now():%Y_%m_%d}'
-        # if not os.path.exists(path):
-        #     os.mkdir(path)
         dt = f'"{datetime.now():%Y%m%d_%H%M%S}.mp4"'
         # TODO: писати в папку з датою
         s.send(str.encode(f"ADD 1 FILE {dt} -vcodec libx264 -preset ultrafast\r\n"))

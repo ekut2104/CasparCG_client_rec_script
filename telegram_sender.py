@@ -1,11 +1,10 @@
 import requests
-import os
 
 
 def send_telegram(text: str):
-    token = os.environ.get('TOKEN')
+    token = "1021754012:AAEE-Zs4EKlHr0BZdxJViCoEW8dI1MxSLeo"
     url = "https://api.telegram.org/bot"
-    channel_id = os.environ.get('CHANNEL_ID')
+    channel_id = "@VC2_rss"
     url += token
     method = url + "/sendMessage"
 
