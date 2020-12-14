@@ -1,6 +1,5 @@
 import socket
 import time
-import os
 from datetime import datetime
 
 
