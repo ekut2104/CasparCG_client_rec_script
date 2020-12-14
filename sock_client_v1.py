@@ -14,6 +14,7 @@ def play_ok(s):
         dt = f'"{datetime.now():%Y%m%d_%H%M%S}.mp4"'
         # TODO: писати в папку з датою
         s.send(str.encode(f"ADD 1 FILE {dt} -vcodec libx264 -preset ultrafast\r\n"))
+        """s.send(str.encode(f"ADD 1 FILE {dt} -vcodec ffvhuff -preset ultrafast -tune fastdecode\r\n")) """
         recv_msg = s.recv(1024)
         if recv_msg.decode() == '202 ADD OK\r\n':
             print('Start rec -', {dt}, data)
